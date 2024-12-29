@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Résultats Gupta</title>
+  </head>
+  <body>
+    <div class="content_container">
+      <!-- Résultats principaux -->
+      <div class="results_container">
+        <h1>Résultats</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Tâche</th>
+              {% for i in range(num_machines - 1) %}
+              <th>Pi{{ i+1 }} + Pi{{ i+2 }}</th>
+              {% endfor %}
+              <th>Min</th>
+              <th>e<sub>i</sub></th>
+              <th>s<sub>i</sub></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in range(num_tasks) %}
+            <tr>
+              <td>T{{ i+1 }}</td>
+              {% for j in range(num_machines - 1) %}
+              <td>{{ p[i][j] }}</td>
+              {% endfor %}
+              <td>{{ minList[i] }}</td>
+              <td>{{ e[i] }}</td>
+              <td>{{ s[i] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Ordre optimal -->
+      <div class="results_container">
+        <h2>L'ordre optimal des tâches est :</h2>
+        <p>
+          {% for i in range(num_tasks) %}
+          <span>T{{ gupta[i] }}</span>{% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+      </div>
+
+      <!-- Cmax -->
+      <div class="results_container">
+        <h2>C<sub>max</sub> : {{ c_max }}</h2>
+      </div>
+
+      <!-- Diagramme de Gantt -->
+      <div class="results_container">
+        <h2>Diagramme de Gantt : Planification des tâches</h2>
+        <canvas id="ganttChart" width="800" height="400"></canvas>
+      </div>
+
+      <!-- Légende des tâches -->
+      <div class="legend_container">
+        <h3>Légende des tâches</h3>
+        <ul id="taskLegend"></ul>
+      </div>
+
+      <!-- Bouton de retour -->
+      <div class="return_container">
+        <a href="/">Retour à l'accueil</a>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Données générées par le serveur
+        const ordreTaches = {{ gupta | tojson }};
+        const nombreMachines = {{ num_machines }};
+        const nombreTaches = {{ num_tasks }};
+        const dureesTaches = {{ pij | tojson }};
+        
+        // Préparer les données pour le diagramme de Gantt
+        const taches = [];
+        let tempsCourant = Array(nombreMachines).fill(0); // Temps initial pour chaque machine
+
+        // Calcul des heures de début et de fin des tâches
+        ordreTaches.forEach((indexTache) => {
+          const donneesTache = [];
+          for (let m = 0; m < nombreMachines; m++) {
+            const debut = m === 0 ? tempsCourant[m] : Math.max(tempsCourant[m], tempsCourant[m - 1]);
+            const fin = debut + dureesTaches[indexTache - 1][m];
+            donneesTache.push({ debut, fin });
+            tempsCourant[m] = fin; // Mise à jour du temps pour cette machine
+          }
+          taches.push(donneesTache);
+        });
+
+        // Préparer les blocs pour le diagramme de Gantt
+        const jeuxDonnees = [];
+        const legendData = [];
+        taches.forEach((donneesTache, indexTache) => {
+          const taskColor = `hsl(${(indexTache * 360) / nombreTaches}, 70%, 50%)`;
+          donneesTache.forEach((donneesMachine, indexMachine) => {
+            jeuxDonnees.push({
+              label: `T${indexTache + 1} (M${indexMachine + 1})`,
+              backgroundColor: taskColor,
+              data: [
+                {
+                  x: [donneesMachine.debut, donneesMachine.fin],
+                  y: `M${indexMachine + 1}`,
+                },
+              ],
+            });
+          });
+          // Ajouter à la légende
+          legendData.push({ task: `T${indexTache + 1}`, color: taskColor });
+        });
+
+        // Créer la légende dynamique
+        const taskLegend = document.getElementById('taskLegend');
+        legendData.forEach(item => {
+          const li = document.createElement('li');
+          li.style.color = item.color;
+          li.textContent = item.task;
+          taskLegend.appendChild(li);
+        });
+
+        // Configurer le diagramme de Gantt
+        const config = {
+          type: "bar",
+          data: {
+            labels: Array.from({ length: nombreMachines }, (_, i) => `M${i + 1}`),
+            datasets: jeuxDonnees,
+          },
+          options: {
+            indexAxis: "y",
+            scales: {
+              x: {
+                type: "linear",
+                position: "bottom",
+                title: {
+                  display: true,
+                  text: "Temps",
+                },
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+          },
+        };
+
+        // Créer le diagramme
+        const ctx = document.getElementById("ganttChart").getContext("2d");
+        new Chart(ctx, config);
+      });
+    </script>
+  </body>
+</html>

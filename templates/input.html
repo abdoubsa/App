@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <title>Entrée des données Gupta</title>
+  </head>
+  <body>
+    <div class="content_container">
+      <h1>Entrez les durées Pi de chaque tâche sur chaque machine</h1>
+      <form action="/input" method="POST">
+        {% for i in range(num_tasks) %}
+        <div class="task-inputs">
+          <label for="task">Tâche {{ i+1 }} :</label>
+          {% for j in range(num_machines) %}
+          <label for="task">P{{ i+1 }}{{ j+1 }}</label>
+          <input
+            type="number"
+            name="task_duration"
+            id="task_duration"
+            min="0"
+            required
+          />
+          {% endfor %}
+        </div>
+        {% endfor %}
+        <button type="submit">Résoudre</button>
+      </form>
+    </div>
+  </body>
+</html>

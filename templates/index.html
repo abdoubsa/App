@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <title>Résolveur Gupta</title>
+  </head>
+  <body>
+    <div class="content_container">
+      <div class="results_container">
+        <h1 id="HeadTitle">Bienvenue sur le Résolveur GUPTA</h1>
+        <p id="HeadDescription">
+          Il s'agit d'une application web simple qui résout les problèmes Fm|perm|Cmax.
+        </p>
+      </div>
+      <div class="results_container">
+        <h2>Entrez le nombre de machines et de tâches</h2>
+        <!-- Formulaire pour entrer les données -->
+        <form action="/" method="POST">
+          <label for="machines">Nombre de machines :</label>
+          <input
+            type="number"
+            id="machines"
+            name="machines"
+            required
+            min="2"
+            placeholder="Au moins 2 machines"
+          />
+          <label for="tasks">Nombre de tâches :</label>
+          <input
+            type="number"
+            id="tasks"
+            name="tasks"
+            required
+            placeholder="Entrez le nombre de tâches"
+          /> <br />
+          <button type="submit">Résoudre</button>
+        </form>
+        <!-- Affichage du message d'erreur s'il existe -->
+        {% if error %}
+        <p style="color: red; margin-top: 10px;">{{ error }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
+
+

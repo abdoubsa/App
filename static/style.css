@@ -1,0 +1,244 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(
+    270deg,
+    #a8c0ff,
+    #a1c4fd,
+    #c2e0ff,
+    #d4ecff,
+    #e6f4ff
+  );
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease infinite;
+  font-family: "Roboto", sans-serif;
+  color: #333;
+}
+/* Animation pour le fond */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Main Container */
+.content_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 900px;
+  padding: 40px;
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Headings */
+h1,
+h2 {
+  color: #3d3d3d;
+  font-weight: 700;
+  margin-bottom: 20px;
+  animation: textFadeIn 1s ease-out;
+}
+
+/* Results Section */
+.results_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.results_container h2 {
+  color: #5e6b87;
+  font-size: 1.6rem;
+}
+
+/* Form & Inputs */
+form {
+  width: 100%;
+}
+
+#task_duration {
+  width: 10%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #555;
+  background-color: #f9f9f9;
+  transition: all 0.3s;
+}
+input[type="number"] {
+  width: 30%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #555;
+  background-color: #f9f9f9;
+  transition: all 0.3s;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: #8c52ff;
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #8c52ff, #6f3ff5);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background: linear-gradient(45deg, #6f3ff5, #8c52ff);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Results Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+  transition: all 0.2s ease;
+}
+
+th {
+  background-color: #8c52ff;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+td {
+  background-color: #f9f9f9;
+}
+
+tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+
+tr:hover td {
+  background-color: #e0e0e0;
+  transform: scale(1.02);
+}
+
+/* Return Link Styling */
+.return_container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.return_container a {
+  display: inline-block;
+  text-decoration: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(45deg, #8c52ff, #6f3ff5);
+  color: #fff;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.return_container a:hover {
+  background: linear-gradient(45deg, #6f3ff5, #8c52ff);
+  transform: translateY(-3px);
+}
+
+/* Text Styling */
+p,
+span {
+  font-size: 1rem;
+  color: #5e6b87;
+}
+
+span {
+  font-weight: bold;
+  color: #8c52ff;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes textFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes backgroundAnimate {
+  0% {
+    background: linear-gradient(135deg, #8c52ff, #6f3ff5);
+  }
+  50% {
+    background: linear-gradient(135deg, #6f3ff5, #8c52ff);
+  }
+  100% {
+    background: linear-gradient(135deg, #8c52ff, #6f3ff5);
+  }
+}
