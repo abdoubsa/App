@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Résultats Gupta</title>
   </head>
+  <header></header>
   <body>
     <div class="content_container">
       <!-- Résultats principaux -->
@@ -45,8 +49,8 @@
         <h2>L'ordre optimal des tâches est :</h2>
         <p>
           {% for i in range(num_tasks) %}
-          <span>T{{ gupta[i] }}</span>{% if not loop.last %}, {% endif %}
-          {% endfor %}
+          <span>T{{ gupta[i] }}</span>{% if not loop.last %}, {% endif %} {%
+          endfor %}
         </p>
       </div>
 
@@ -80,7 +84,7 @@
         const nombreMachines = {{ num_machines }};
         const nombreTaches = {{ num_tasks }};
         const dureesTaches = {{ pij | tojson }};
-        
+
         // Préparer les données pour le diagramme de Gantt
         const taches = [];
         let tempsCourant = Array(nombreMachines).fill(0); // Temps initial pour chaque machine
@@ -160,4 +164,7 @@
       });
     </script>
   </body>
+  <footer>
+    <p>© 2024 - Résolveur Gupta par Abderrahmane Boussaa et Djamel Mebrek</p>
+  </footer>
 </html>

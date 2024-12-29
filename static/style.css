@@ -8,7 +8,8 @@
 /* Global Styles */
 body {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   min-height: 100vh;
   margin: 0;
@@ -24,6 +25,14 @@ body {
   animation: gradientShift 15s ease infinite;
   font-family: "Roboto", sans-serif;
   color: #333;
+}
+
+footer {
+  margin: 20px;
+}
+
+footer p {
+  color: black;
 }
 /* Animation pour le fond */
 @keyframes gradientShift {

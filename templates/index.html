@@ -3,15 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
     <title>Résolveur Gupta</title>
   </head>
+  <header></header>
   <body>
     <div class="content_container">
       <div class="results_container">
         <h1 id="HeadTitle">Bienvenue sur le Résolveur GUPTA</h1>
         <p id="HeadDescription">
-          Il s'agit d'une application web simple qui résout les problèmes Fm|perm|Cmax.
+          Il s'agit d'une application web simple qui résout les problèmes
+          Fm|perm|Cmax.
         </p>
       </div>
       <div class="results_container">
@@ -34,16 +39,18 @@
             name="tasks"
             required
             placeholder="Entrez le nombre de tâches"
-          /> <br />
+          />
+          <br />
           <button type="submit">Résoudre</button>
         </form>
         <!-- Affichage du message d'erreur s'il existe -->
         {% if error %}
-        <p style="color: red; margin-top: 10px;">{{ error }}</p>
+        <p style="color: red; margin-top: 10px">{{ error }}</p>
         {% endif %}
       </div>
     </div>
   </body>
+  <footer>
+    <p>© 2024 - Résolveur Gupta par Abderrahmane Boussaa et Djamel Mebrek</p>
+  </footer>
 </html>
-
-
